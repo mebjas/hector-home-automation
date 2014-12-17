@@ -12,30 +12,29 @@ void setup()
 }
 
 void loop() {
-  char input;
+  int input = 0;
   int selected, state;
   int flag = 0;
   
   // Read any serial input
   while (Serial.available() > 0)
   {
-    input = (char) Serial.read(); // Read in one char at a time
-    Serial.println(input);
-    selected = (input - 'a') / 2;
-    state = (input - 'a') % 2;  // 0 - off, 1 - on
+    input = (input*10) + ((char) Serial.read() - '0'); // Read in one char at a time
     ++flag;
-    Serial.println("LED: " +selected +' , STATE: ' +state);
     delay(5); // Delay for 5 ms so the next char has time to be received
   }
-  
   if (flag) {
-    if (selected >= 0 && selected < LEDS) {
-      if (state == 1)
-        digitalWrite(led[selected], HIGH);
-      else if (state == 0)
-        digitalWrite(led[selected], LOW);
+    Serial.println("------------------------------");
+    Serial.println(input);
+    for(int i = 0; i < LEDS; i++) {
+      if ((input>>i)&1 == 1) {
+        digitalWrite(led[i], HIGH);
+        Serial.print(i);
+        Serial.print(" HIGH\n");
+      } else {
+        digitalWrite(led[i], LOW);
+      }
     }
   }
+  return;
 }
-
-  
