@@ -20,4 +20,4 @@ Capable of controlling the LEDS using `tablet`, `phone`, `web browser`, `termina
  - Switching LEDS On or Off
  - Get Information about state of leds
 
-![web interface](http://cistoner.org/minhaz/wp-content/uploads/2014/12/Screen-Shot-2014-12-17-at-8.22.56-pm-1024x473.png)
+![web interface](http://cistoner.org/minhaz/wp-content/uploads/2015/01/Screen-Shot-2015-01-13-at-12.21.57-pm-1024x358.png)
