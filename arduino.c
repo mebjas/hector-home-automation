@@ -1,5 +1,4 @@
 #define LEDS 4
-<<<<<<< HEAD
 #define irSensorPin A0
 #define irLedPin 9
 
@@ -16,12 +15,6 @@ int ledState[LEDS] = {0};
 float val = 0;
 int zeroSince = 0;
 float irRead(int readPin, int triggerPin); //function prototype
-=======
-#define _log(a) Serial.println((a))
-#define __log(a) Serial.print((a))
-
-const int led[LEDS] = {2, 3, 4, 5};      // the pin that the LED is attached to
->>>>>>> FETCH_HEAD
 
 void setup()
 {
@@ -80,20 +73,12 @@ void loop() {
     delay(5); // Delay for 5 ms so the next char has time to be received
   }
   if (flag) {
-<<<<<<< HEAD
     _log("------------------------------");
     _log(input);
     for(int i = 0; i < LEDS; i++) {
       if ((input>>i)&1 == 1) {
         digitalWrite(led[i], HIGH);
         ledState[i] = 1;
-=======
-	  _log("------------------------------");
-	  _log(input);
-    for(int i = 0; i < LEDS; i++) {
-      if ((input>>i)&1 == 1) {
-        digitalWrite(led[i], HIGH);
->>>>>>> FETCH_HEAD
         __log(i);
         __log(" HIGH\n");
       } else {
@@ -105,7 +90,6 @@ void loop() {
   delay(10);
   return;
 }
-<<<<<<< HEAD
 
 /******************************************************************************
  * This function can be used with a panasonic pna4602m ir sensor
@@ -128,5 +112,3 @@ float irRead(int readPin, int triggerPin)
   }
   return analogRead(readPin);
 }
-=======
->>>>>>> FETCH_HEAD
