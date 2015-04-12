@@ -6,6 +6,7 @@
 #define __log(a) Serial.print((a))
 
 const int led[LEDS] = {7, 6, 5, 4};      // the pin that the LED is attached to
+const int indicators[4] = {10, 11, 12, 13};
 int ledState[LEDS] = {0};
 
 // For IR Reader
@@ -22,15 +23,35 @@ void setup()
   // initialize the serial communication:
   Serial.begin(9600);
   // initialize the ledPin as an output:
-  for(int i = 0; i < LEDS; i++)
+  for(int i = 0; i < LEDS; i++) {
     pinMode(led[i], OUTPUT);
+    pinMode(indicators[i], OUTPUT); 
+  }
   Serial.flush();
+}
+
+/**
+ *  Function to clear the loaders
+ */
+void ClearLoader() {
+  for (int j = 0; j < 4; j++) {
+    digitalWrite(indicators[j], LOW);
+  }
+}
+
+void loaderIndicate(int per) {
+  int m = per / 25;
+  for (int j = 0; j < 4; j++) {
+    if (m--) digitalWrite(indicators[j], HIGH);
+    else digitalWrite(indicators[j], LOW);
+  }
 }
 
 void loop() {
   float irval = irRead(irSensorPin, irLedPin);
   val += (irval > 20) ? irval : 0;
   if (val > trhld * Multiplier) {
+    ClearLoader();
     ledState[0] = (ledState[0] == 1) ? 0 : 1;
     if (ledState[0] == 1) {
       Serial.println("ON -- ");
@@ -43,6 +64,7 @@ void loop() {
     }
     val = 0;
   } else {
+    loaderIndicate((int)(val / (trhld * Multiplier) * 100));
     // reseting val
     if (irval <= 20) {
       zeroSince++;
@@ -87,6 +109,7 @@ void loop() {
       }
     }
   }
+  
   delay(10);
   return;
 }
